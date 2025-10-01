@@ -55,7 +55,7 @@ class PollReader():
         """
 
         # iterate through each row of the data
-        for i in self.raw_data:
+        for i in self.raw_data[1:]:
 
             # split up the row by column
             seperated = i.split(',')
@@ -132,22 +132,17 @@ class PollReader():
                    Positive values indicate an increase, negative values indicate a decrease.
         """
         total_polls = len(self.data_dict['Harris result'])
-
         latest_harris = self.data_dict['Harris result'][:30]
         latest_trump = self.data_dict['Trump result'][:30]
-
         earliest_harris = self.data_dict['Harris result'][-30:]
         earliest_trump = self.data_dict['Trump result'][-30:]
-
         def avg(lst):
             if len(lst) > 0:
                 return sum(lst) / len(lst)
             else:
                 return 0.0
-
         harris_change = avg(latest_harris) - avg(earliest_harris)
         trump_change = avg(latest_trump) - avg(earliest_trump)
-
         return harris_change, trump_change
 
 
